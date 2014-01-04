@@ -56,8 +56,8 @@ So define a transition on a property of the el like so:
 
 
 - The router will not work if there there is no transition that occurs when the .show class is added and removed. The reason is that the router listens for `transitionend` before adding and removing elements.
-
-ex: If you've only defined webkit-transition and you try to run the app in Firefox, you'll probably notice that
+  
+   ex: If you've only defined webkit-transition and you try to run the app in Firefox, you'll probably notice that
 `window.history.back()` and the back button don't work.
 
 # Development
