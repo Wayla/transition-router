@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e #automatically exit on error
+
+component install
+component build
+cp build/build.js release/transition-router.js

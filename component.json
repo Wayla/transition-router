@@ -1,0 +1,22 @@
+{
+  "name": "transition-router",
+  "repo": "Wayla/transition-router",
+  "description": "",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/route"     : "0.2.0",
+    "kaerus-component/uP" : "0.3.3",
+    "kewah/mixin"         : "0.1.0"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "releases/transition-router.js",
+  "scripts": [
+    "src/transition-router.js",
+    "src/promise-queue.js"
+  ],
+  "styles": [],
+  "templates": [],
+  "remotes": []
+}
