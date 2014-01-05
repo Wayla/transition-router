@@ -936,7 +936,7 @@ if (typeof Object.keys === 'function') {
 }
 
 });
-require.register("transition-router/src/transition-router.js", function(exports, require, module){
+require.register("transition-router/src/index.js", function(exports, require, module){
 var states //would be ideal if we could store state
            //in the pushState state object - but apparently
            //there's a size limit
