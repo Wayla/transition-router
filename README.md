@@ -8,6 +8,8 @@ Just return a DOM element, define a transition on it, we'll do the rest!
 ## Demo
   
   [http://wayla.github.io/transition-router](http://wayla.github.io/transition-router)
+  
+  *best viewed on iOS Safari
 
 ## Use Cases
 - The use case for which the transition-router was originally developed was Wayla's single-page, mobile web app. Basically, each route change transitioned in a new full-screen "page", transitioning out the current page. The idea was to achieve a native app feel in mobile web.
