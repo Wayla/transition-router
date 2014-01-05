@@ -11,9 +11,24 @@ Just return a DOM element, define a transition on it, we'll do the rest!
 
 ## Usage
 
+You'll need an element to contain the elements that the router adds to the DOM. Something like:
+
+```
+  <body>
+   <div id='page-container'></div>
+  </body>
+  
+```
+
+would work.
+
+The javascript you'll need might look like this:
+
 ```
 TransitionRouter = require('transition-router') //componentjs require statement
-transitionRouter = new TransitionRouter
+transitionRouter = new TransitionRouter({
+  containerElement : document.querySelector('#page-container')
+})
 
 //create a route whose handler returns a DOM element
 
