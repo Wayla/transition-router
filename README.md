@@ -41,7 +41,7 @@ transitionRouter.get('/', function () {
 ```
 
 The transitionRouter will apply the .show css class to el, triggering the transition.
-So define a transition on a property of the el like so:
+So define a transition on a property on the el like so:
 
 
 ```
