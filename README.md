@@ -17,7 +17,6 @@ You'll need an element to contain the elements that the router adds to the DOM. 
   <body>
    <div id='page-container'></div>
   </body>
-  
 ```
 
 would work.
