@@ -60,7 +60,7 @@ So define a transition on a property of the el like so:
    ex: If you've only defined webkit-transition and you try to run the app in Firefox, you'll probably notice that
 `window.history.back()` and the back button don't work.
 
-# Development
+## Development
 
   To install development dependencies, run `npm install`
 
