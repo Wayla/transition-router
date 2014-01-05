@@ -33,7 +33,7 @@ transitionRouter = new TransitionRouter({
 
 transitionRouter.get('/', function () {
     el = /* logic to generate a DOM element */
-    el.classList.add('el-class') /* make sure that the el has a css class - this is necessary to implement the transition */
+    el.classList.add('page-1') /* make sure that the el has a css class - this is necessary to implement the transition */
     return el
 })
 ```
@@ -43,15 +43,27 @@ So define a transition on a property of the el like so:
 
 
 ```
-.el-class {
+.page-1 {
     transition        : -webkit-transform 1s linear;
     -webkit-transform : translate3d(100%,0,0); /* pre-transition state */
 }
 
-.el-class.show {
+.page-1.show {
     -webkit-transform : translate3d(0,0,0); /* post-transition state */
 }
 ```
+
+You'll also need to make sure that each `el` is `position:absolute` in order for the overlay effect of the transitions to work properly:
+
+```
+.page-1 {
+    transition        : -webkit-transform 1s linear;
+    -webkit-transform : translate3d(100%,0,0); /* pre-transition state */
+
+    position:absolute;
+}
+```
+
 
 ## Features
 

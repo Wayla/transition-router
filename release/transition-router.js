@@ -46,10 +46,18 @@ function require(path, parent, orig) {
 require.modules = {};
 
 /**
- * Registered aliases.
+ * Main definitions.
  */
 
-require.aliases = {};
+require.mains = {};
+
+/**
+ * Define a main.
+ */
+
+require.main = function(name, path){
+  require.mains[name] = path;
+};
 
 /**
  * Resolve `path`.
@@ -66,7 +74,7 @@ require.aliases = {};
  */
 
 require.resolve = function(path) {
-  if (path.charAt(0) === '/') path = path.slice(1);
+  if ('/' == path.charAt(0)) path = path.slice(1);
 
   var paths = [
     path,
@@ -76,10 +84,15 @@ require.resolve = function(path) {
     path + '/index.json'
   ];
 
-  for (var i = 0; i < paths.length; i++) {
+  if (require.mains[path]) {
+    paths = [path + '/' + require.mains[path]];
+  }
+
+  for (var i = 0, len = paths.length; i < len; i++) {
     var path = paths[i];
-    if (require.modules.hasOwnProperty(path)) return path;
-    if (require.aliases.hasOwnProperty(path)) return require.aliases[path];
+    if (require.modules.hasOwnProperty(path)) {
+      return path;
+    }
   }
 };
 
@@ -100,7 +113,7 @@ require.normalize = function(curr, path) {
   curr = curr.split('/');
   path = path.split('/');
 
-  for (var i = 0; i < path.length; ++i) {
+  for (var i = 0, len = path.length; i < len; ++i) {
     if ('..' == path[i]) {
       curr.pop();
     } else if ('.' != path[i] && '' != path[i]) {
@@ -124,21 +137,6 @@ require.register = function(path, definition) {
 };
 
 /**
- * Alias a module definition.
- *
- * @param {String} from
- * @param {String} to
- * @api private
- */
-
-require.alias = function(from, to) {
-  if (!require.modules.hasOwnProperty(from)) {
-    throw new Error('Failed to alias "' + from + '", it does not exist');
-  }
-  require.aliases[to] = from;
-};
-
-/**
  * Return a require function relative to the `parent` path.
  *
  * @param {String} parent
@@ -147,7 +145,7 @@ require.alias = function(from, to) {
  */
 
 require.relative = function(parent) {
-  var p = require.normalize(parent, '..');
+  var root = require.normalize(parent, '..');
 
   /**
    * lastIndexOf helper.
@@ -177,15 +175,7 @@ require.relative = function(parent) {
   localRequire.resolve = function(path) {
     var c = path.charAt(0);
     if ('/' == c) return path.slice(1);
-    if ('.' == c) return require.normalize(p, path);
-
-    // resolve deps by returning
-    // the dep in the nearest "deps"
-    // directory
-    var segs = parent.split('/');
-    var i = lastIndexOf(segs, 'deps') + 1;
-    if (!i) i = 0;
-    path = segs.slice(0, i + 1).join('/') + '/deps/' + path;
+    if ('.' == c) return require.normalize(root, path);
     return path;
   };
 
@@ -258,7 +248,7 @@ require.register("component-route/index.js", function(exports, require, module){
  * Module dependencies.
  */
 
-var toRegexp = require('path-to-regexp');
+var toRegexp = require("component-path-to-regexp");
 
 /**
  * Expose `Route`.
@@ -436,7 +426,7 @@ require.register("kaerus-component-uP/index.js", function(exports, require, modu
  * @main uP
  */
 
-var task = require('microTask'); // nextTick shim
+var task = require("kaerus-component-microTask"); // nextTick shim
 
 (function(root){
     "use strict"
@@ -787,7 +777,7 @@ var task = require('microTask'); // nextTick shim
      * The process may also return a promise itself which to wait on.  
      * 
      * Example: Make readFileSync async
-     *      fs = require('fs');
+     *      fs = require("fs");
      *      var asyncReadFile = uP().defer(fs.readFileSync,'./index.js','utf-8');
      *      asyncReadFile.then(function(data){
      *          console.log(data)
@@ -817,7 +807,7 @@ var task = require('microTask'); // nextTick shim
      * Adapted for nodejs style functions expecting a callback. 
      * 
      * Example: make readFile async
-     *      fs = require('fs');
+     *      fs = require("fs");
      *      var asyncReadFile = uP.async(fs.readFile,'./index.js','utf-8');
      *      asyncReadFile.then(function(data){
      *          console.log(data);
@@ -941,11 +931,11 @@ var states //would be ideal if we could store state
            //in the pushState state object - but apparently
            //there's a size limit
            //https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history
-  , Promise = require('micropromise')
-  , Route = require('route')
-  , PromiseQueue = require('./promise-queue')
-  , persistence = require('./persistence')
-  , mixin = require('mixin')
+  , Promise = require("kaerus-component-uP")
+  , Route = require("component-route")
+  , PromiseQueue = require("./promise-queue")
+  , persistence = require("./persistence")
+  , mixin = require("kewah-mixin")
   , everPushedSomething
   , initialUrl = location.href
   , animationQueue //a queue of calls to animateBetweenPages()
@@ -959,6 +949,8 @@ animationQueue = new PromiseQueue
 module.exports = Router
 
 function Router(options) {
+
+  if (!options.containerElement) {throw 'containerElement must be defined'}
 
   this.containerElement = options.containerElement
   this.persistence = options.persistence || false
@@ -1035,12 +1027,13 @@ Router.prototype.get = function(){
       nextElement = generateNextElement.apply(null, args)
       //so we dont execute the transition right away, we queue it up until any current animations finish (though most probably the queue is empty and it will get executed right away)
       animationQueue.enqueue(function () { return animateBetweenPages({
-        direction : metadata.direction,
-        nextElement : nextElement,
-        currentElement : this.containerElement.children[0] || null, //probably a better way to determine this that doesnt depend on the DOM (i.e. children[0])
-                                                                    //null === tehre isn't an existing page (i.e. initial load)
-                                                                    //basically we're saying that this.containerElement.children.length === 0 means that it's initial load
-        containerElement : this.containerElement
+        direction         :   metadata.direction,
+        nextElement       :   nextElement,
+        currentElement    :   this.containerElement.children.length ? this.containerElement.children[0] : null,
+                          //  probably a better way to determine this that doesnt depend on the DOM (i.e. children[0])
+                          //  null === tehre isn't an existing page (i.e. initial load)
+                          //  basically we're saying that this.containerElement.children.length === 0 means that it's initial load
+        containerElement  :   this.containerElement
       }) }.bind(this))
     }.bind(this)
     //maybe i should use https://github.com/segmentio/ware
@@ -1220,6 +1213,7 @@ function animateBetweenPages(options) {
 }
 
 });
+require.main("transition-router", "lib/index.js")
 require.register("transition-router/lib/promise-queue.js", function(exports, require, module){
 module.exports = PromiseQueue
 
@@ -1326,17 +1320,3 @@ module.exports = function (options) {
 
 
 
-
-require.alias("component-route/index.js", "transition-router/deps/route/index.js");
-require.alias("component-route/index.js", "route/index.js");
-require.alias("component-path-to-regexp/index.js", "component-route/deps/path-to-regexp/index.js");
-
-require.alias("kaerus-component-uP/index.js", "transition-router/deps/micropromise/index.js");
-require.alias("kaerus-component-uP/index.js", "micropromise/index.js");
-require.alias("kaerus-component-microTask/index.js", "kaerus-component-uP/deps/microTask/index.js");
-
-require.alias("kewah-mixin/index.js", "transition-router/deps/mixin/index.js");
-require.alias("kewah-mixin/index.js", "transition-router/deps/mixin/index.js");
-require.alias("kewah-mixin/index.js", "mixin/index.js");
-require.alias("kewah-mixin/index.js", "kewah-mixin/index.js");
-require.alias("transition-router/lib/index.js", "transition-router/index.js");
