@@ -12,9 +12,7 @@ Just return a DOM element, define a transition on it, we'll do the rest!
 ## Usage
 
 ```
-//componentjs require statement
-
-TransitionRouter = require('transition-router')
+TransitionRouter = require('transition-router') //componentjs require statement
 transitionRouter = new TransitionRouter
 
 //create a route whose handler returns a DOM element
