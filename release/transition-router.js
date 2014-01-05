@@ -1339,4 +1339,4 @@ require.alias("kewah-mixin/index.js", "transition-router/deps/mixin/index.js");
 require.alias("kewah-mixin/index.js", "transition-router/deps/mixin/index.js");
 require.alias("kewah-mixin/index.js", "mixin/index.js");
 require.alias("kewah-mixin/index.js", "kewah-mixin/index.js");
-require.alias("transition-router/lib/index.js", "transition-router/index.js");
+require.alias("transition-router/src/index.js", "transition-router/index.js");
