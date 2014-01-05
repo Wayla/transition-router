@@ -11,11 +11,11 @@
   },
   "development": {},
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": [
-    "src/index.js",
-    "src/promise-queue.js",
-    "src/persistence.js"
+    "lib/index.js",
+    "lib/promise-queue.js",
+    "lib/persistence.js"
   ],
   "styles": [],
   "templates": [],

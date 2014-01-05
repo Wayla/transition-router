@@ -936,7 +936,7 @@ if (typeof Object.keys === 'function') {
 }
 
 });
-require.register("transition-router/src/index.js", function(exports, require, module){
+require.register("transition-router/lib/index.js", function(exports, require, module){
 var states //would be ideal if we could store state
            //in the pushState state object - but apparently
            //there's a size limit
@@ -1220,7 +1220,7 @@ function animateBetweenPages(options) {
 }
 
 });
-require.register("transition-router/src/promise-queue.js", function(exports, require, module){
+require.register("transition-router/lib/promise-queue.js", function(exports, require, module){
 module.exports = PromiseQueue
 
 function PromiseQueue() {
@@ -1262,7 +1262,7 @@ function PromiseQueue() {
 }
 
 });
-require.register("transition-router/src/persistence.js", function(exports, require, module){
+require.register("transition-router/lib/persistence.js", function(exports, require, module){
 /**************************************************************************
 
 Optional mixin offering localStorage persistence of the last route visited.
@@ -1339,4 +1339,4 @@ require.alias("kewah-mixin/index.js", "transition-router/deps/mixin/index.js");
 require.alias("kewah-mixin/index.js", "transition-router/deps/mixin/index.js");
 require.alias("kewah-mixin/index.js", "mixin/index.js");
 require.alias("kewah-mixin/index.js", "kewah-mixin/index.js");
-require.alias("transition-router/src/index.js", "transition-router/index.js");
+require.alias("transition-router/lib/index.js", "transition-router/index.js");
