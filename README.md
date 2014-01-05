@@ -43,7 +43,6 @@ So define a transition on a property of the el like so:
 
 
 ```
-
 .el-class {
     transition        : -webkit-transform 1s linear;
     -webkit-transform : translate3d(100%,0,0); /* pre-transition state */
