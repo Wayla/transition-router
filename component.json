@@ -14,7 +14,8 @@
   "main": "releases/transition-router.js",
   "scripts": [
     "src/transition-router.js",
-    "src/promise-queue.js"
+    "src/promise-queue.js",
+    "src/persistence.js"
   ],
   "styles": [],
   "templates": [],
