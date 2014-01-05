@@ -8,6 +8,11 @@ Just return a DOM element, define a transition on it, we'll do the rest!
 ## Demo
   
   [http://wayla.github.io/transition-router](http://wayla.github.io/transition-router)
+  
+  *Ideal viewing environment: iOS 7 Safari
+
+## Use Cases
+- The use case for which the transition-router was originally developed was Wayla's single-page, mobile web app. Basically, each route change transitioned in a new full-screen "page", transitioning out the current page. Think native app feel in mobile web.
 
 ## Usage
 
@@ -41,7 +46,7 @@ transitionRouter.get('/', function () {
 ```
 
 The transitionRouter will apply the .show css class to el, triggering the transition.
-So define a transition on a property of the el like so:
+So define a transition on a property on the el:
 
 
 ```
