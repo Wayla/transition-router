@@ -112,7 +112,7 @@ router.get('/my-route', middleware, routeHandler)
 This codebase:
 
 - is a copy-paste-modify of https://github.com/component/router/blob/master/index.js. Big upps to https://github.com/visionmedia.
-- takes the column concept from https://github.com/xcoderzach/transition-router. Enormously huge upps to https://github.com/xcoderzach/
+- takes the column concept and overarching architecture from https://github.com/xcoderzach/transition-router. Enormously huge upps to https://github.com/xcoderzach/
 
 The principal differences between transition-router and component/router are:
 
