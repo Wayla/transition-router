@@ -927,11 +927,7 @@ if (typeof Object.keys === 'function') {
 
 });
 require.register("transition-router/lib/index.js", function(exports, require, module){
-var states //would be ideal if we could store state
-           //in the pushState state object - but apparently
-           //there's a size limit
-           //https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history
-  , Promise = require("kaerus-component-uP")
+var Promise = require("kaerus-component-uP")
   , Route = require("component-route")
   , PromiseQueue = require("./promise-queue")
   , persistence = require("./persistence")
@@ -1078,10 +1074,6 @@ function animateBetweenPages(options) {
     , containerElement  = options.containerElement
     , direction         = options.direction
 
-  //elementCache isnt currently being used
-  //var elementCache = {} //probably better to use like Component.set or ecma sets if such a thing exists
-                        //elementCache will only be used if options.keepCurrentElement === true
-
   var Classes = {
     Show : 'show' //i'd like to use .adding and .removing, but the current css markup is using .show a lot
   }
@@ -1149,30 +1141,6 @@ function animateBetweenPages(options) {
       })
 
     break
-  // not sure there's a use case for removeThenAdd, so commenting out
-  //
-  // case 'removeThenAdd': //the currentElement will go through its remove transition first, then the nextElement will go through its add transition.
-  //                       //the currentElement does get added right away though
-
-  //   requestAnimationFrame(function () {
-
-  //     currentElement.classList.remove(Classes.Show)
-
-  //     currentElementAnimationEndPromise
-  //       .then(function () {
-  //         containerElement.removeChild(currentElement)
-  //         containerElement.appendChild(nextElement)
-  //         requestAnimationFrame(function () { nextElement.classList.add(Classes.Show) })
-  //       })
-
-  //     nextElementAnimationEndPromise
-  //       .then(function () {
-  //         //nextElement.classList.remove(Classes.Adding)
-  //       })
-
-  //   })
-
-  //   break
   case 'addThenRemove': //the nextElement will go through its add transition first, then the currentElement will go through its remove transition
                         //obviously (I guess), the currentElement does get removed until it finishes its remove transition
 
@@ -1216,6 +1184,15 @@ function animateBetweenPages(options) {
 require.main("transition-router", "lib/index.js")
 require.register("transition-router/lib/promise-queue.js", function(exports, require, module){
 module.exports = PromiseQueue
+
+/*****************************************************************************
+
+The PromiseQueue will execute promise-producing functions:
+- in the order they are added to the PromiseQueue
+- one at a time - i.e. the next promise-producing function in the PromiseQueue
+  will only be called when the current promise is resolved.
+
+******************************************************************************/
 
 function PromiseQueue() {
 
