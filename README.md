@@ -5,7 +5,7 @@ A router which takes care of adding/removing elements and transitioning them on 
 
 Just return a DOM element, define a transition on it, we'll do the rest!
 
-# Demo
+## Demo
   
   [http://wayla.github.io/transition-router](http://wayla.github.io/transition-router)
 
