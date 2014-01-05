@@ -11,7 +11,7 @@
   },
   "development": {},
   "license": "MIT",
-  "main": "releases/transition-router.js",
+  "main": "lib/transition-router.js",
   "scripts": [
     "src/index.js",
     "src/promise-queue.js",
