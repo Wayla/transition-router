@@ -5,6 +5,40 @@
         font-family: Helvetica;
     }
 
+    .page-1 {
+        -webkit-transition:-webkit-transform 0.3s linear;
+        -webkit-transform:translate3d(100%,0,0); /* elemnt will slide in from the right-hand side of the screen */
+
+        position:absolute; /* position:absolute so that the pages will stack on top of each other */
+
+        background-color: lightblue;
+        width:100%;
+        height:100%;
+
+    }
+
+    .page-1.show { /* defining the show class, as this is the class that the transition router adds and removes as it changes routes */
+        -webkit-transform:translate3d(0,0,0);
+    }
+
+    .page-2 {
+        -webkit-transition:-webkit-transform 0.3s linear;
+        -webkit-transform:translate3d(0,100%,0); /* elemnt will slide in from the bottom of the screen */
+
+        position:absolute;
+
+        background-color: red;
+        width:100%;
+        height:100%;
+
+    }
+
+    .page-2.show {
+        -webkit-transform:translate3d(0,0,0);
+    }
+
+
+
 </style>
 
 
@@ -24,8 +58,15 @@ window.transitionRouter = new TransitionRouter({
 
 transitionRouter.get('/', function () {
     var el = document.createElement('div')
+    el.innerHTML = "I am a page! Here's a link to <a onclick='window.transitionRouter.dispatch(\"/page-2\")'>another page</a>."
+    el.classList.add('page-1') /* make sure that the el has a css class - this is necessary to implement the transition */
+    return el
+})
+
+transitionRouter.get('/page-2', function () {
+    var el = document.createElement('div')
     el.innerHTML = 'i am an element'
-    el.classList.add('el-class') /* make sure that the el has a css class - this is necessary to implement the transition */
+    el.classList.add('page-2') /* make sure that the el has a css class - this is necessary to implement the transition */
     return el
 })
 
