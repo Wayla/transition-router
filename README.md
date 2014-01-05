@@ -11,6 +11,8 @@ Just return a DOM element, define a transition on it, we'll do the rest!
 
 ## Usage
 
+### Setup
+
 You'll need an element to contain the elements that the router adds to the DOM. Something like:
 
 ```
@@ -64,6 +66,23 @@ You'll also need to make sure that each `el` is `position:absolute` in order for
 }
 ```
 
+### Invoking routes
+
+Routes are invoked by either
+- `dispatch()`
+- `go()` (which implicitly calls `dispatch()`)
+
+The difference between `dispatch()` and `go()` is that `go()` will also call `history.pushState()` and persist the current route to `localStorage` if the `persistance` option is enabled.
+
+### Options
+
+- persistence (default : true)
+  ```
+  new TransitionRouter({persistence: true, containerElement : el})
+  ```
+
+  persists the current route to localStorage. (Any time the app is launched -- actually when should this happen?), fetches the last route stored in localStorage and `go()`'s to that route.
+  
 
 ## Features
 
