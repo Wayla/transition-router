@@ -49,7 +49,7 @@ So define a transition on a property of the el like so:
 - Expressjs-style middleware
   
   ```
-  router.get('/my-route', Middleware, RouteHandler)
+  router.get('/my-route', middleware, routeHandler)
   ```
 
 ## Gotchas
