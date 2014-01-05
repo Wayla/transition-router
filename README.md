@@ -37,7 +37,6 @@ transitionRouter.get('/', function () {
     el.classList.add('el-class') /* make sure that the el has a css class - this is necessary to implement the transition */
     return el
 })
-
 ```
 
 The transitionRouter will apply the .show css class to el, triggering the transition.
@@ -54,7 +53,6 @@ So define a transition on a property of the el like so:
 .el-class.show {
     -webkit-transform : translate3d(0,0,0); /* post-transition state */
 }
-
 ```
 
 ## Features
