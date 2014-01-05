@@ -14,9 +14,9 @@ Just return a DOM element, define a transition on it, we'll do the rest!
 You'll need an element to contain the elements that the router adds to the DOM. Something like:
 
 ```
-  <body>
-   <div id='page-container'></div>
-  </body>
+<body>
+ <div id='page-container'></div>
+</body>
 ```
 
 would work.
@@ -58,9 +58,9 @@ So define a transition on a property of the el like so:
 
 - Expressjs-style middleware
   
-  ```
-  router.get('/my-route', middleware, routeHandler)
-  ```
+```
+router.get('/my-route', middleware, routeHandler)
+```
 
 ## Gotchas
 
