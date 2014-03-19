@@ -5,9 +5,10 @@
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
-    "component/route"     : "0.2.0",
-    "kaerus-component/uP" : "0.3.3",
-    "kewah/mixin"         : "0.1.0"
+    "component/route": "0.2.0",
+    "kaerus-component/uP": "0.3.3",
+    "kewah/mixin": "0.1.0",
+    "component/emitter": "1.1.1"
   },
   "development": {},
   "license": "MIT",
